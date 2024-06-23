@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+
 	"github.com/hojabri/backend/models"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
@@ -69,7 +70,7 @@ func (db companyCategoryDatabase) FindAll() []*models.CompanyCategory {
 func (db companyCategoryDatabase) FindByID(companyCategoryID uint) (*models.CompanyCategory, error) {
 	var companyCategory models.CompanyCategory
 	result := db.connection.Preload(clause.Associations).Find(&companyCategory, "id = ?", companyCategoryID)
-	
+
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -82,7 +83,7 @@ func (db companyCategoryDatabase) FindByID(companyCategoryID uint) (*models.Comp
 func (db companyCategoryDatabase) FindByName(name string) (*models.CompanyCategory, error) {
 	var companyCategory models.CompanyCategory
 	result := db.connection.Preload(clause.Associations).Find(&companyCategory, "name = ?", name)
-	
+
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -95,7 +96,7 @@ func (db companyCategoryDatabase) FindByName(name string) (*models.CompanyCatego
 func (db companyCategoryDatabase) FindByField(fieldName, fieldValue string) (*models.CompanyCategory, error) {
 	var companyCategory models.CompanyCategory
 	result := db.connection.Preload(clause.Associations).Find(&companyCategory, fmt.Sprintf("%s = ?", fieldName), fieldValue)
-	
+
 	if result.Error != nil {
 		return nil, result.Error
 	}

@@ -1,6 +1,7 @@
+# Example YAML configuration
 DB:
-  ADDRESS: 127.0.0.1
+  ADDRESS: localhost
   PORT: 5432
   USERNAME: postgres
-  PASSWORD: p@ssw0rd
-  DATABASE: backend_db
+  PASSWORD: yash
+  DATABASE: postgres

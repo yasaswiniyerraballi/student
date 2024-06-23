@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 1em;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            background-color: #3498db;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1em;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1em;
+            text-align: center;
+            color: #666;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75em 1.5em;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            margin-right: 1em;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th, td {
+            padding: 0.75em;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .add-form {
+            margin-top: 2em;
+            text-align: center;
+        }
+
+        .add-form input[type="text"], 
+        .add-form input[type="email"], 
+        .add-form input[type="tel"],
+        .add-form select,
+        .add-form input[type="number"] {
+            padding: 0.5em;
+            width: 250px;
+            margin: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .add-form button {
+            padding: 0.75em 1.5em;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-form button:hover {
+            background-color: #555;
+        }
+
+        .delete-button {
+            background-color: #e74c3c;
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Styles for the image */
+        .about-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 1em;
+            max-height: 200px; /* Adjust max-height as needed */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>student  Management</h1>
+        <nav>
+            <ul>
+                <li>
+                    <div class="dropdown">
+                        <button class="button">Administering &#9660;</button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="showSection('users')">Administer Users</a>
+                            <a href="#" onclick="showSection('companies')">Administer Companies</a>
+                            <a href="#" onclick="showSection('categories')">Administer Categories</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section id="about">
+        <div class="container">
+            <h2>Overview</h2>
+            <p>Our platform provides streamlined access to comprehensive data on students' employment statuses and roles across diverse companies. This centralized information empowers educators, recruiters, and stakeholders to make informed decisions and forge impactful collaborations. By enhancing transparency in career trajectories, we ensure students receive personalized support and access opportunities that align with their professional ambitions.</p>
+            
+            <!-- Image added below the paragraph -->
+            <img src="https://w7.pngwing.com/pngs/611/165/png-transparent-student-business-management-marketing-learning-business-male-business-woman-business-vector-computer.png" alt="Student and Business Management Image" class="about-image">
+        </div>
+    </section>
+</body>
+</html>
+
+    
+    <main>
+        <div class="container">
+            <div id="users" class="section" style="display: none;">
+                <h2>Users</h2>
+                <input type="text" id="userSearchInput" placeholder="Search by Name" onkeyup="searchTable('usersTable', this.value)">
+                <div class="table-container">
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr data-id="1">
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>john.doe@example.com</td>
+                                <td>+123456789</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteUser(1)">Delete</button>
+                                    <a href="/users/1" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="2">
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>jane.smith@example.com</td>
+                                <td>+987654321</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteUser(2)">Delete</button>
+                                    <a href="/users/2" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="3">
+                                <td>3</td>
+                                <td>Michael Johnson</td>
+                                <td>michael.johnson@example.com</td>
+                                <td>+4455667788</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteUser(3)">Delete</button>
+                                    <a href="/users/3" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="4">
+                                <td>4</td>
+                                <td>Sarah Brown</td>
+                                <td>sarah.brown@example.com</td>
+                                <td>+1122334455</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteUser(4)">Delete</button>
+                                    <a href="/users/4" class="button">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-form">
+                    <h3>Add New User</h3>
+                    <form id="addUserForm" onsubmit="addUser(event)">
+                        <input type="number" id="userId" name="id" placeholder="ID" required>
+                        <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+                        <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                        <button type="submit" class="button">Add User</button>
+                    </form>
+                </div>
+            </div>
+            <div id="companies" class="section" style="display: none;">
+                <h2>Companies</h2>
+                <input type="text" id="companySearchInput" placeholder="Search by Name" onkeyup="searchTable('companiesTable', this.value)">
+                <div class="table-container">
+                    <table id="companiesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="companiesTableBody">
+                            <tr data-id="1">
+                                <td>1</td>
+                                <td>Apple Inc.</td>
+                                <td>Cupertino, CA</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCompany(1)">Delete</button>
+                                    <a href="/companies/1" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="2">
+                                <td>2</td>
+                                <td>Microsoft Corporation</td>
+                                <td>Redmond, WA</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCompany(2)">Delete</button>
+                                    <a href="/companies/2" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="3">
+                                <td>3</td>
+                                <td>Google LLC</td>
+                                <td>Mountain View, CA</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCompany(3)">Delete</button>
+                                    <a href="/companies/3" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="4">
+                                <td>4</td>
+                                <td>Amazon.com Inc.</td>
+                                <td>Seattle, WA</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCompany(4)">Delete</button>
+                                    <a href="/companies/4" class="button">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-form">
+                    <h3>Add New Company</h3>
+                    <form id="addCompanyForm" onsubmit="addCompany(event)">
+                        <input type="number" id="companyId" name="id" placeholder="ID" required>
+                        <input type="text" id="companyName" name="name" placeholder="Name" required>
+                        <input type="text" id="companyLocation" name="location" placeholder="Location" required>
+                        <button type="submit" class="button">Add Company</button>
+                    </form>
+                </div>
+            </div>
+            <div id="categories" class="section" style="display: none;">
+                <h2>Categories</h2>
+                <input type="text" id="categorySearchInput" placeholder="Search by Name" onkeyup="searchTable('categoriesTable', this.value)">
+                <div class="table-container">
+                    <table id="categoriesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody">
+                            <tr data-id="1">
+                                <td>1</td>
+                                <td>Technology</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCategory(1)">Delete</button>
+                                    <a href="/categories/1" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="2">
+                                <td>2</td>
+                                <td>Finance</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCategory(2)">Delete</button>
+                                    <a href="/categories/2" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="3">
+                                <td>3</td>
+                                <td>Healthcare</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCategory(3)">Delete</button>
+                                    <a href="/categories/3" class="button">View</a>
+                                </td>
+                            </tr>
+                            <tr data-id="4">
+                                <td>4</td>
+                                <td>Education</td>
+                                <td>
+                                    <button class="button delete-button" onclick="deleteCategory(4)">Delete</button>
+                                    <a href="/categories/4" class="button">View</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-form">
+                    <h3>Add New Category</h3>
+                    <form id="addCategoryForm" onsubmit="addCategory(event)">
+                        <input type="number" id="categoryId" name="id" placeholder="ID" required>
+                        <input type="text" id="categoryName" name="name" placeholder="Name" required>
+                        <button type="submit" class="button">Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+    
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+        }
+    
+        function searchTable(tableId, searchText) {
+            var table = document.getElementById(tableId);
+            var rows = table.getElementsByTagName('tr');
+    
+            for (var i = 0; i < rows.length; i++) {
+                var currentRow = rows[i];
+                var found = false;
+                var cells = currentRow.getElementsByTagName('td');
+    
+                for (var j = 0; j < cells.length; j++) {
+                    var currentCell = cells[j];
+                    if (currentCell) {
+                        if (currentCell.innerHTML.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+    
+                if (found) {
+                    currentRow.style.display = '';
+                } else {
+                    currentRow.style.display = 'none';
+                }
+            }
+        }
+    
+        function addUser(event) {
+            event.preventDefault();
+            var userId = document.getElementById('userId').value;
+            var firstname = document.getElementById('firstname').value;
+            var lastname = document.getElementById('lastname').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+    
+            var usersTableBody = document.getElementById('usersTableBody');
+            var newRow = document.createElement('tr');
+            newRow.setAttribute('data-id', userId);
+            newRow.innerHTML = `
+                <td>${userId}</td>
+                <td>${firstname} ${lastname}</td>
+                <td>${email}</td>
+                <td>${phone}</td>
+                <td>
+                    <button class="button delete-button" onclick="deleteUser(${userId})">Delete</button>
+                    <a href="/users/${userId}" class="button">View</a>
+                </td>
+            `;
+            usersTableBody.appendChild(newRow);
+    
+            document.getElementById('userId').value = '';
+            document.getElementById('firstname').value = '';
+            document.getElementById('lastname').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+    
+            attachDeleteEvent();
+        }
+    
+        function addCompany(event) {
+            event.preventDefault();
+            var companyId = document.getElementById('companyId').value;
+            var companyName = document.getElementById('companyName').value;
+            var companyLocation = document.getElementById('companyLocation').value;
+    
+            var companiesTableBody = document.getElementById('companiesTableBody');
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${companyId}</td>
+                <td>${companyName}</td>
+                <td>${companyLocation}</td>
+                <td>
+                    <button class="button delete-button" onclick="deleteCompany(${companyId})">Delete</button>
+                    <a href="/companies/${companyId}" class="button">View</a>
+                </td>
+            `;
+            companiesTableBody.appendChild(newRow);
+    
+            document.getElementById('companyId').value = '';
+            document.getElementById('companyName').value = '';
+            document.getElementById('companyLocation').value = '';
+    
+            attachDeleteEvent();
+        }
+    
+        function addCategory(event) {
+            event.preventDefault();
+            var categoryId = document.getElementById('categoryId').value;
+            var categoryName = document.getElementById('categoryName').value;
+    
+            var categoriesTableBody = document.getElementById('categoriesTableBody');
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${categoryId}</td>
+                <td>${categoryName}</td>
+                <td>
+                    <button class="button delete-button" onclick="deleteCategory(${categoryId})">Delete</button>
+                    <a href="/categories/${categoryId}" class="button">View</a>
+                </td>
+            `;
+            categoriesTableBody.appendChild(newRow);
+    
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categoryName').value = '';
+    
+            attachDeleteEvent();
+        }
+    
+        function deleteUser(userId) {
+            var rowToDelete = document.querySelector(`#usersTableBody tr[data-id='${userId}']`);
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+        }
+    
+        function deleteCompany(companyId) {
+            var rowToDelete = document.querySelector(`#companiesTableBody tr[data-id='${companyId}']`);
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+        }
+    
+        function deleteCategory(categoryId) {
+            var rowToDelete = document.querySelector(`#categoriesTableBody tr[data-id='${categoryId}']`);
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+        }
+    
+        function attachDeleteEvent() {
+            var deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    var itemId = this.closest('tr').getAttribute('data-id');
+                    if (this.closest('#users')) {
+                        deleteUser(itemId);
+                    } else if (this.closest('#companies')) {
+                        deleteCompany(itemId);
+                    } else if (this.closest('#categories')) {
+                        deleteCategory(itemId);
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>    

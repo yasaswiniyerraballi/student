@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/gofiber/fiber/v2 v2.7.1
+	github.com/gofiber/template/html/v2 v2.1.1 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.7.1
 	gorm.io/driver/postgres v1.0.8

@@ -1,0 +1,16 @@
+{
+  "name": "student",
+  "version": "1.0.0",
+  "description": "A REST web-service sample project written in Golang using go-fiber, GORM and PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
